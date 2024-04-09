@@ -4,7 +4,7 @@ L'[Inversion de Dépendance](https://fr.wikipedia.org/wiki/SOLID_(informatique))
 
 > ###### Durée de vie des services
 > 
-> Dans le cas, d'une application web, les Inj de Dép sont souvent utilisées pour les instances de services et peuvent avoir 3 durées de vie:
+> Dans le cas, d'une application web, les Injections de Dépendances sont souvent utilisées pour les instances de services et peuvent avoir 3 durées de vie:
 >
 > ```csharp
 > services.AddTransient<IMyService, MyService>();
