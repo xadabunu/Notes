@@ -47,3 +47,9 @@ public class CustomerRepository : IRepository<Customer>
 ## Limitations
 
 - **Complexité accrue:** L'ajout d'une couche de repositories peut augmenter la complexité globale de l'application, surtout pour les applications de petite taille.
+
+# Dapper
+
+Librairie qui se construit autour de ADO.NET pour apporter de nouvelles méthodes simplifiant l'accès et l'interaction avec les données.<br>
+Elle est comparable à Entity Framework mais nous laisse maître du code SQL généré là où EF produit son propre code à travers les requêtes LINQ.
+
