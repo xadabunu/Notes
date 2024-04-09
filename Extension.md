@@ -4,7 +4,7 @@ Les classes d'extension en C# sont une fonctionnalité puissante qui permet d'é
 Elles sont majoritairement utilisées pour écrire de nouvelles bibliothèques basées sur des bibliothèques existantes
 
 ## Fonctionnement
----
+
 ### 1. Définition de méthodes d'extension
 
 - Les méthodes d'extension sont des méthodes statiques définies dans des classes statiques.
@@ -39,7 +39,7 @@ Les deux lignes feront appel à la méthode statique de PersonneExtention et aff
 > Bonjour, je m'appelle Roger
 
 ## Avantages
----
+
 - **Extensibilité:** Les classes d'extension permettent d'ajouter de nouvelles fonctionnalités à des types existants sans modifier leur code source, ce qui favorise le principe d'**[ouverture/fermeture]((https://fr.wikipedia.org/wiki/SOLID_(informatique)))**.
 - **Lisibilité:** Elles rendent le code plus lisible et maintenable en regroupant des méthodes associées avec le type cible.
 
@@ -66,7 +66,7 @@ PersonneExtension.DisBonjour(p1);
 p1.DisBonjour();
 ```
 affichera cette fois
->Bonjour je m'appelle Roger
+>Bonjour je m'appelle Roger <br>
 >J'ai la priorité!
 
 
