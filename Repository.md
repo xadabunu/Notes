@@ -4,8 +4,6 @@ Le Repository Pattern est un design pattern séparant la responsabilité de l'ac
 
 ## Fonctionnement
 
----
-
 ### 1. Abstraction de l'accès aux données
 
 - Les repositories fournissent une abstraction (interface IRepository) pour l'accès aux données en exposant des méthodes pour effectuer des opérations CRUD (Create, Read, Update, Delete) sur les entités.
