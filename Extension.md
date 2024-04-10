@@ -1,7 +1,7 @@
-# Classes d'Extension
+# Méthodes d'Extension
 
-Les classes d'extension en C# sont une fonctionnalité puissante qui permet d'étendre les fonctionnalités d'une classe sans modifier directement son code source. Elles offrent une manière élégante d'ajouter de nouvelles méthodes à des types existants, notamment des types primitifs ou des types de bibliothèque.
-Elles sont majoritairement utilisées pour écrire de nouvelles bibliothèques basées sur des bibliothèques existantes
+Les méthodes d'extension en C# sont une fonctionnalité puissante qui permet d'étendre les fonctionnalités d'une classe sans modifier directement son code source. Elles offrent une manière élégante d'ajouter de nouvelles méthodes à des types existants, notamment des types primitifs ou des types de bibliothèque.
+Elles sont utilisées pour écrire de nouvelles bibliothèques basées sur des bibliothèques existantes et pour architecturer le code.
 
 ## Fonctionnement
 
@@ -41,7 +41,7 @@ Les deux lignes feront appel à la méthode statique de PersonneExtention et aff
 ## Avantages
 
 - **Extensibilité:** Les classes d'extension permettent d'ajouter de nouvelles fonctionnalités à des types existants sans modifier leur code source, ce qui favorise le principe d'**[ouverture/fermeture]((https://fr.wikipedia.org/wiki/SOLID_(informatique)))**.
-- **Lisibilité:** Elles rendent le code plus lisible et maintenable en regroupant des méthodes associées avec le type cible.
+- **Lisibilité:** Elles rendent le code plus lisible en regroupant des méthodes associées avec le type cible.
 
 ## Limitations
 
@@ -70,4 +70,4 @@ affichera cette fois
 >J'ai la priorité!
 
 
-- **Clarté du code:** L'utilisation excessive de classes d'extension peut rendre le code moins clair, car les méthodes ajoutées peuvent sembler appartenir à la classe cible, il faut trouver le juste milieu.
+- **Clarté du code:** L'utilisation excessive de classes d'extension peut rendre le code moins clair, car les méthodes ajoutées peuvent sembler appartenir à la classe cible, il faut trouver le juste milieu. CURSEUR
