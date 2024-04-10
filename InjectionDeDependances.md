@@ -70,6 +70,11 @@ L'Inversion de dépendance est un principe de conception dans lequel, au lieu d'
 - **Dépendance à l'interface:** Les composants dépendent d'abstractions (interfaces) plutôt que d'implémentations concrètes. Cela favorise la flexibilité du code.
 - **Modularité accrue:** L'Inversion de dépendance favorise la modularité en séparant les préoccupations et en réduisant les couplages entre les différents composants. Seule une modification du contrat impliquera une modification du code du programme.
 
+![alt text](images/Inversion_dépendances.png)
+> Au lieu de dépendre directement de *ZMail* qui est une librairie externe qu'on ne maîtrise pas et qui pourrait être modifiée à tout moment, on dépend d'une interface *IHandleMail* qui met en place un contrat.
+> On crée également une classe *HandleMail* qui implémente notre interface en utilisant les outils de *ZMail*.
+> De cette façon, si si nous devions nous séparer de *ZMail*, on devrait uniquement ajuster le code de *HandleMail* mais le code de notre classe *Programme* serait en sécurité.
+
 ## Injection de Dépendances
 
 
@@ -117,97 +122,3 @@ public class MyService(MyDep _dependancy) { }
 
 - **Complexité accrue:** La mise en œuvre de l'Inversion et de l'Injection de Dépendances peut ajouter une certaine complexité d'abstraction, surtout pour les applications de petite taille.
 - **Surcharge cognitive:** Comprendre et maintenir du code utilisant ces principes peut nécessiter une courbe d'apprentissage pour les développeurs.
-
-# Exemple d'implémentation
-
-### Sans Inversion de dépendances
-
-#### Code
-
-```csharp
-public class Personne
-{
-    public string Nom { get; set; } = String.Empty;
-    public Ordinateur Ordinateur { get; set; } = null!;
-    public Telephone Telephone { get; set; } = null!;
-
-    public void ConnecterOrdinateur()
-    {
-        Console.WriteLine(Nom + " connecte son ordinateur " + Ordinateur.Marque);
-    }
-
-    public void ConnecterTelephone()
-    {
-        Console.WriteLine(Nom + " connecte son telephone " + Telephone.Marque);
-    }
-}
-
-public class Ordinateur
-{
-    public string Marque { get; set; }
-}
-
-public class Telephone
-{
-    public string Marque { get; set; }
-}
-```
-
-#### Dépendances
-
-<img src="images/Sans_Inversion.png">
-
-### Avec Inversion de dépendances
-
-#### Code
-
-```csharp
-public interface IConnectable
-{
-        public void Connecter();
-}
-
-public class Personne
-{
-    public string Nom { get; set; } = String.Empty;
-    public IConnectable Ordinateur { get; set; } = null!;
-    public IConnectable Telephone { get; set; } = null!;
-
-    private void Connecter(IConnectable connectable)
-    {
-        connectable.Connecter();
-    }
-
-    public void UtiliserOrdinateur()
-    {
-        Connecter(Ordinateur);
-    }
-
-    public void UtiliserTelephone()
-    {
-        Connecter(Telephone);
-    }
-}
-
-public class Ordinateur
-{
-    public string Marque { get; set; }
-
-    public void Connecter()
-    {
-        Console.WriteLine("Ordinateur " + Marque + " est connecté");
-    }}
-
-public class Telephone
-{
-    public string Marque { get; set; }
-
-    public void Connecter()
-    {
-        Console.WriteLine("Téléphone " + Marque + " est connecté");
-    }}
-```
-
-#### Dépendances
-
-<img src="images/Avec_Inversion.png">
