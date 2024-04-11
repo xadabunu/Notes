@@ -7,9 +7,9 @@ L'[Inversion de Dépendance](https://fr.wikipedia.org/wiki/SOLID_(informatique))
 > Dans le cas d'une application web, les Injections de Dépendances sont souvent utilisées pour les instances de services et peuvent avoir 3 durées de vie (pour des applications dotnet):
 >
 > ```csharp
-> services.AddTransient<IMyService, MyService>();
-> services.AddScoped<IMyService, MyService>();
-> services.AddSingleton<IMyService, MyService>();
+> builder.Services.AddTransient<IMyService, MyService>();
+> builder.Services.AddScoped<IMyService, MyService>();
+> builder.Services.AddSingleton<IMyService, MyService>();
 > // à chaque fois qu'une instance de IMyService est nécessaire,
 > // l'application regarde si une instance existe dans le scope correspondant
 > ```
@@ -59,7 +59,20 @@ L'[Inversion de Dépendance](https://fr.wikipedia.org/wiki/SOLID_(informatique))
 >});
 > ```
 > cas d'utilisation: état du service ne sera pas modifié par d'autres sources
-
+> 
+> ### KeyedServices
+>
+> Il est également possible d'instancier différentes implémentations d'une interface en fonction d'un mot-clé.
+> ```csharp
+> builder.Services.AddTransient<IMyService, MyServiceOne>("first");
+> builder.Services.AddTransient<IMyService, MyServiceTwo>("second");
+>
+> app.MapGet("/keyedservice", (
+>	[FromKeyedServices("first")] IMyService nameOne,
+>	[FromKeyedServices("second")] IMyService nameTwo,
+> ) => { ... });
+> ```
+> **[FromKeyedServices]** est un attribut permettant d'indiquer au container quel implémentation de l'interface instancier en fonction de la *key* qui lui est fournie.
 
 ## Inversion de Dépendance
 
