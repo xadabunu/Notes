@@ -12,51 +12,67 @@ L'[Inversion de Dépendance](https://fr.wikipedia.org/wiki/SOLID_(informatique))
 > builder.Services.AddSingleton<IMyService, MyService>();
 > // à chaque fois qu'une instance de IMyService est nécessaire,
 > // l'application regarde si une instance existe dans le scope correspondant
+> 
+> public interface IMyService
+> {
+>     public int GetNum();
+> }
+> 
+> public class MyService : IMyService
+> {
+> private int _number { get; }
+> 
+>     public MyService()
+>     {
+>         _number = new Random().Next(); //génère un int random entre intmin et intmax
+>     }
+> 
+>     public int GetNum()
+>     {
+>         return _number;
+>     }
+> }
 > ```
 > 
 > **Transient:** une instance du service est créée à chaque déclaration
 > ```csharp
->app.MapGet("/test", (HttpContext context) =>
->{
->    var ms = context.RequestServices.GetService<IMyService>();
->    var ms2 = context.RequestServices.GetService<IMyService>();
->
->    Console.WriteLine(ms == ms2); // False
->});
+> app.MapGet("/test", (IMyService ms1, IMyService ms2) =>
+> {
+>    Console.WriteLine(ms1.GetNum() == ms2.GetNum()); // False
+> });
 > ```
 > cas d'utilisation: service léger, stateless
 > 
 > **Scoped:** une instance du service est créée à chaque requête
 > ```csharp
->app.MapGet("/test", (HttpContext context) =>
->{
->    var ms = context.RequestServices.GetService<IMyService>();
->    var ms2 = context.RequestServices.GetService<IMyService>();
->
->    Console.WriteLine(ms == ms2); // True
->});
+> app.MapGet("/test", (IMyService ms1, IMyService ms2) =>
+> {
+>    Console.WriteLine(ms1.GetNum() == ms2.GetNum()); // True
+> });
 > ```
 > cas d'utilisation: on veut conserver l'état du service le temps de la requête 
 > 
 > **Singleton:** une seule instance du service est créée pour toute la durée de vie de l'application
 > ```csharp
->app.MapGet("/test", (HttpContext context) =>
->{
+> app.MapGet("/test", (IMyService ms1) =>
+> {
 >    var ms = context.RequestServices.GetService<IMessageService>();
 >    
 >    GCHandle handle = GCHandle.Alloc(ms, GCHandleType.Pinned);
 >    Console.WriteLine(handle.AddrOfPinnedObject());
 >    handle.Free();
->});
->// les deux requêtes affichent la même adresse
->app.MapGet("/autretest", (HttpContext context) =>
->{
+> });
+> // les deux requêtes affichent la même adresse
+> app.MapGet("/autretest", (HttpContext context) =>
+> {
 >    var ms = context.RequestServices.GetService<IMessageService>();
 >    
 >    GCHandle handle = GCHandle.Alloc(ms, GCHandleType.Pinned);
 >    Console.WriteLine(handle.AddrOfPinnedObject());
 >    handle.Free();
->});
+> });
+> // ce code permet de voir comment accéder à l'adresse d'un objet mais afficher les _number
+> // de chaque service est une meilleure pratique et plus safe
 > ```
 > cas d'utilisation: état du service ne sera pas modifié par d'autres sources
 > 

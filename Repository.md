@@ -50,4 +50,39 @@ public class CustomerRepository : IRepository<Customer>
 
 Librairie qui se construit autour de ADO.NET pour apporter de nouvelles méthodes simplifiant l'accès et l'interaction avec les données.<br>
 Elle est comparable à Entity Framework mais nous laisse maître du code SQL généré là où EF produit son propre code à travers les requêtes LINQ.
+Elle ajoute des méthodes d'extension à la classe SqlConnection permettant d'alléger notre code :
 
+```csharp
+var connectionString = "...";
+using SqlConnection connection = new(connectionString);
+
+var query = "...";
+
+// le code suivant
+
+using SqlCommand command = new(query, connection);
+using SqlDataReader reader = command.ExecuteReader();
+
+while (reader.Read())
+{
+    // handle the data
+}
+
+// devient
+
+data = connection.Query(query); //data est un IEnumerable<dynamic>
+foreach(var var_name in data)
+{
+    // handle the data
+}
+
+// ou bien en précisant le type
+
+data = connection.Query<Demande>(query); //data est un IEnumerable<Demande>
+foreach(var var_name in data)
+{
+    // handle the data
+}
+```
+
+Il y a les méthodes `Query` pour les get, `Execute` pour les autres ou encore `Single/OrDefault/Async` etc
