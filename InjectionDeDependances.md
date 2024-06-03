@@ -55,10 +55,8 @@ L'[Inversion de Dépendance](https://fr.wikipedia.org/wiki/SOLID_(informatique))
 > **Singleton:** une seule instance du service est créée pour toute la durée de vie de l'application
 > ```csharp
 > app.MapGet("/test", (IMyService ms1) =>
-> {
->    var ms = context.RequestServices.GetService<IMessageService>();
->    
->    GCHandle handle = GCHandle.Alloc(ms, GCHandleType.Pinned);
+> {    
+>    GCHandle handle = GCHandle.Alloc(ms1, GCHandleType.Pinned);
 >    Console.WriteLine(handle.AddrOfPinnedObject());
 >    handle.Free();
 > });
